@@ -6,7 +6,10 @@ headers = {'Authorization': API_KEY, 'Accept':'application/vnd.api+json'}
 
 def retrieve_player_info(player_name):
 	if ''.join(list(filter(lambda x: x.isalpha() or x == '_', list(player_name)))) != player_name:
-		return 
+		response = requests.Response()
+		response.status_code = 400
+		response.reason = 'Bad Request'
+		return response
 	else:
 		return requests.get('https://api.dc01.gamelockerapp.com/shards/na/players/', 
 		headers=headers, params={'filter[playerNames]':'{}'.format(player_name)})
