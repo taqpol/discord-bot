@@ -29,6 +29,7 @@ if exists(env_file):
     environ.Env.read_env(str(env_file))
 SECRET_KEY = env('SECRET_KEY')
 API_KEY = env('API_KEY')
+SPREADSHEET_ID = env('spreadsheet_id')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
