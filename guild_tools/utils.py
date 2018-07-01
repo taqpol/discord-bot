@@ -5,7 +5,6 @@ from oauth2client import file, client, tools
 import os
 from discord_bot.settings import SPREADSHEET_ID as spreadsheet_id
 import operator
-# Setup the Sheets API
 
 
 def google_auth_setup(cred_file):
@@ -47,11 +46,7 @@ def get_top_fame_reapers():
 	request = service.spreadsheets().get(spreadsheetId=spreadsheet_id)
 	response = request.execute()
 
-	#series of steps required to get weekly fame for user at position for x sheet
-	# response['sheets'][x]['data'][0]['rowData'][position]['values'][1]['effectiveValue']['numberValue']
-
 	sheet_list = [sheet['properties']['title'] for sheet in response['sheets']]
-	#candidate for possible conversion to f strings when possible
 	fame_range = ['{}!A2:D51'.format(sheet) for sheet in sheet_list]
 
 	request = service.spreadsheets().get(spreadsheetId=spreadsheet_id, ranges=fame_range, includeGridData=True)
@@ -76,10 +71,18 @@ def get_top_fame_reapers():
 					else:
 						weekly_fame_list_with_name.append(name_and_fame)
 
-	weekly_fame_list_with_name.sort(key=operator.itemgetter(1), reverse=True)
-	import pdb; pdb.set_trace()
+	weekly_fame_list_with_name.sort(key=operator.itemgetter(1))
 
-	return weekly_fame_list_with_name[:10]
+	end_position = -11
+	top_ten = list(dict(weekly_fame_list_with_name[end_position:]).items())
+	while len(top_ten) < 10:
+		end_position -= 1
+		top_ten.append(weekly_fame_list_with_name[end_position])
+		top_ten = list(dict(top_ten).items())
+
+	top_ten.sort(key=operator.itemgetter(1), reverse=True)
+
+	return top_ten
 
 
 
