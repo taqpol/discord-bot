@@ -73,7 +73,7 @@ def get_top_fame_reapers():
 
 	weekly_fame_list_with_name.sort(key=operator.itemgetter(1))
 
-	top_ten = list(dict(weekly_fame_list_with_name))[-11:][::-1]
+	top_ten = list(dict(weekly_fame_list_with_name).items())[-11:][::-1]
 
 	# end_position = -11
 	# top_ten = list(dict(weekly_fame_list_with_name[end_position:]).items())
