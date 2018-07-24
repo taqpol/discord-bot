@@ -3,9 +3,9 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import os
-from discord_bot.settings import SPREADSHEET_ID as spreadsheet_id
 import operator
 
+spreadsheet_id='1L1WURA9-4GDfKSl7RRuVUPZdXtEjtjWiMv1vQmicS4s'
 
 def google_auth_setup(cred_file):
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
@@ -28,7 +28,7 @@ def get_fame_reaper_of_week():
 	request = service.spreadsheets().get(spreadsheetId=spreadsheet_id)
 	response = request.execute()	
 	
-	sheet_list = [sheet['sheets'][position]['properties']['title'] for sheet in response['sheets']]
+	sheet_list = [sheet['properties']['title'] for sheet in response['sheets']]
 	ranges = '{}!A2:B51'.format(sheet_list[-1])  
 	major_dimension = 'COLUMNS'
 
@@ -73,8 +73,19 @@ def get_top_fame_reapers():
 						weekly_fame_list_with_name.append(name_and_fame)
 
 	weekly_fame_list_with_name.sort(key=operator.itemgetter(1))
-
-	top_ten = list(dict(weekly_fame_list_with_name).items())[-11:][::-1]
-
+	weekly_fame_list_without_duplicates = list(dict(weekly_fame_list_with_name).items())
+	weekly_fame_list_without_duplicates.sort(key=operator.itemgetter(1))
+	top_ten = weekly_fame_list_without_duplicates[-11:][::-1]
 
 	return top_ten
+
+def format_names(names):
+	if isinstance(names, tuple):
+		return '{} - {}'.format(names[0], names[1])
+
+	elif isinstance(names, list):
+		names_string = ''
+		for name in names:
+			names_string += '{} - {} \n'.format(name[0], name[1]) 
+
+	return names_string
