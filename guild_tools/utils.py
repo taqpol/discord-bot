@@ -39,6 +39,7 @@ def get_fame_reaper_of_week():
 	top_fame = max(response['values'][1])
 	position = response['values'][1].index(top_fame)
 
+
 	return (response['values'][0][position], top_fame)
 
 #recalculate at 00:00 AM Monday asynchronously; do not attempt before and only attempt once
@@ -75,17 +76,5 @@ def get_top_fame_reapers():
 
 	top_ten = list(dict(weekly_fame_list_with_name).items())[-11:][::-1]
 
-	# end_position = -11
-	# top_ten = list(dict(weekly_fame_list_with_name[end_position:]).items())
-	# while len(top_ten) < 10:
-	# 	end_position -= 1
-	# 	top_ten.append(weekly_fame_list_with_name[end_position])
-	# 	top_ten = list(dict(top_ten).items())
-
-	# top_ten.sort(key=operator.itemgetter(1), reverse=True)
 
 	return top_ten
-
-
-
-
