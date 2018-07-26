@@ -26,4 +26,3 @@ def retrieve_match_telemetry(match_id):
 
 def retrieve_match_data(match_id):
 	pass
-
