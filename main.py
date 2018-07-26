@@ -1,5 +1,7 @@
 import discord
 from guild_tools.utils import get_top_fame_reapers, get_fame_reaper_of_week, format_names
+import os
+import datetime
 
 client = discord.Client()
 
@@ -18,9 +20,9 @@ async def on_message(message):
 
 @client.event 
 async def on_ready():
-	print('Logged in.')
+	print('Logged in at {}.'.format(datetime.datetime.now()))
 	print(client.user.name)
 	print(client.user.id)
 
 
-#client.run('')
+client.run(os.environ.get('BOT_TOKEM'))

@@ -1,11 +1,10 @@
-from __future__ import print_function
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import os
 import operator
 
-spreadsheet_id='1L1WURA9-4GDfKSl7RRuVUPZdXtEjtjWiMv1vQmicS4s'
+spreadsheet_id = os.environ.get('SPREADSHEET_ID')
 
 def google_auth_setup(cred_file):
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'

@@ -1,6 +1,7 @@
 import requests
-from discord_bot.settings import API_KEY
+import os
 
+API_KEY = os.environ.get('API_KEY')
 
 headers = {'Authorization': API_KEY, 'Accept':'application/vnd.api+json'}
 
