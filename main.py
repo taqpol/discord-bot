@@ -2,8 +2,16 @@ import discord
 from guild_tools.utils import get_top_fame_reapers, get_fame_reaper_of_week, format_names
 import os
 import datetime
+from googleapiclient.discovery import build
+from httplib2 import Http
+from guild_tools.utils import google_auth_setup
 
 client = discord.Client()
+
+
+creds = google_auth_setup('client_secret.json')
+service = build('sheets', 'v4', http=creds.authorize(Http()))
+
 
 @client.event
 async def on_message(message):

@@ -1,8 +1,6 @@
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
 import os
 import operator
+from oauth2client import file, client, tools
 
 spreadsheet_id = os.environ.get('SPREADSHEET_ID')
 
@@ -17,10 +15,6 @@ def google_auth_setup(cred_file):
 		return None
 	else:
 		return creds
-
-creds = google_auth_setup('client_secret.json')
-service = build('sheets', 'v4', http=creds.authorize(Http()))
-
 
 #calculate at 00:00 AM and store in env vars
 def get_fame_reaper_of_week():
@@ -77,6 +71,18 @@ def get_top_fame_reapers():
 	top_ten = weekly_fame_list_without_duplicates[-11:][::-1]
 
 	return top_ten
+
+def get_player_names():
+	request = service.spreasheets().get(spreadsheet_id=spreadsheet_id)
+	response = request.execute()
+
+	last_sheet = response['sheets'][-1]['properties']['title']
+	names = '{}!A2:A51'.format(last_sheet)
+
+	request = service.spreadsheets().get(spreadsheet_id=spreadsheet_id, ranges=names, includeGridData=True)
+	response = request.execute()
+
+	return 
 
 def format_names(names):
 	if isinstance(names, tuple):
