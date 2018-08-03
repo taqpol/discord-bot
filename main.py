@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 client = discord.Client()
 
 
-creds = google_auth_setup(json.JSONDecoder().decode(os.environ.get('GOOGLE_CREDS')))
+creds = google_auth_setup()
 service = build('sheets', 'v4', http=creds.authorize(Http()))
 
 
