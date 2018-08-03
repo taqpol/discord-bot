@@ -5,11 +5,15 @@ import datetime
 from googleapiclient.discovery import build
 from httplib2 import Http
 from guild_tools.utils import google_auth_setup
+import logging
+import json
+
+logging.basicConfig(level=logging.INFO)
 
 client = discord.Client()
 
 
-creds = google_auth_setup(os.environ.get('GOOGLE_CREDS'))
+creds = google_auth_setup(json.JSONDecoder().decode(os.environ.get('GOOGLE_CREDS')))
 service = build('sheets', 'v4', http=creds.authorize(Http()))
 
 
