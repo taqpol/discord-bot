@@ -1,6 +1,5 @@
 
 *.env
-*.txt
 *.pyc
 *.html
 *.json
