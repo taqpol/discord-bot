@@ -10,7 +10,8 @@ def google_auth_setup():
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 	store = file.Storage('credentials.json')
 	with open('cred_file.json' , 'w') as cred_file:
-		json.dump(os.environ.get('GOOGLE_CREDS'), cred_file)
+		deserialized_json = os.environ.get('GOOGLE_CREDS')
+		json.dump(deserialized_json, cred_file)
 	try:
 	    flow = client.flow_from_clientsecrets(os.path.join(os.getcwd(), 'cred_file.json'), SCOPES)
 	    flags = tools.argparser.parse_args('--auth_host_name localhost --logging_level INFO'.split())
