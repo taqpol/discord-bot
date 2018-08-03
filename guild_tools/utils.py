@@ -1,6 +1,7 @@
 import os
 import operator
 from oauth2client import file, client, tools
+import logging
 
 spreadsheet_id = os.environ.get('SPREADSHEET_ID')
 
@@ -12,6 +13,7 @@ def google_auth_setup(cred_file):
 	    flags = tools.argparser.parse_args('--auth_host_name localhost --logging_level INFO'.split())
 	    creds = tools.run_flow(flow, store, flags)
 	except:
+		logging.exception('')
 		return None
 	else:
 		return creds
