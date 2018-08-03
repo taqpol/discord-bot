@@ -14,7 +14,7 @@ def google_auth_setup():
 		json.dump(deserialized_json, cred_file)
 	try:
 	    flow = client.flow_from_clientsecrets(os.path.join(os.getcwd(), 'cred_file.json'), SCOPES)
-	    flags = tools.argparser.parse_args('--auth_host_name localhost --logging_level INFO'.split())
+	    flags = tools.argparser.parse_args('--auth_host_name localhost --noauth_local_webserver --logging_level INFO'.split())
 	    creds = tools.run_flow(flow, store, flags)
 	except:
 		logging.exception('')
