@@ -9,7 +9,7 @@ from guild_tools.utils import google_auth_setup
 client = discord.Client()
 
 
-creds = google_auth_setup('client_secret.json')
+creds = google_auth_setup(os.environ.get('GOOGLE_CREDS'))
 service = build('sheets', 'v4', http=creds.authorize(Http()))
 
 
